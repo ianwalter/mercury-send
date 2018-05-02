@@ -1,24 +1,37 @@
 const flatstr = require('flatstr')
 
 module.exports = function mercurySend (req, res, next) {
+  res.type = function type (type) {
+    this.contentType = type
+    return this
+  }
+
   res.status = function status (code) {
     this.statusCode = code
     return this
   }
 
   res.send = function send (payload) {
-    const stringify = res.stringify || JSON.stringify
-    let contentType = 'text/plain'
+    const stringify = this.stringify || JSON.stringify
+    const headers = {
+      ...(this.contentType ? { 'content-type': this.contentType } : {})
+    }
+
     let content = payload
     if (typeof payload === 'object') {
-      contentType = 'application/json;charset=utf-8'
+      if (!headers['content-type']) {
+        headers['content-type'] = 'application/json;charset=utf-8'
+      }
       content = stringify(payload)
-    } else {
+    } else if (typeof payload === 'string') {
+      if (!headers['content-type']) {
+        headers['content-type'] = 'text/plain'
+      }
       content = flatstr(payload)
     }
 
     //
-    this.writeHead(res.statusCode || 200, { 'content-type': contentType })
+    this.writeHead(this.statusCode || 200, headers)
     this.end(content)
   }
 
