@@ -12,7 +12,6 @@ module.exports = function mercurySend (req, res, next) {
   }
 
   res.send = function send (payload) {
-    const stringify = this.stringify || JSON.stringify
     const headers = {
       ...(this.contentType ? { 'content-type': this.contentType } : {})
     }
@@ -21,6 +20,11 @@ module.exports = function mercurySend (req, res, next) {
     if (typeof payload === 'object') {
       if (!headers['content-type']) {
         headers['content-type'] = 'application/json;charset=utf-8'
+      }
+
+      let stringify = JSON.stringify
+      if (this.stringify && this.stringify[this.statusCode]) {
+        stringify = this.stringify[this.statusCode]
       }
       content = stringify(payload)
     } else if (typeof payload === 'string') {
