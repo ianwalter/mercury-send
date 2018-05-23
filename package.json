@@ -1,23 +1,27 @@
 {
-  "name": "mercury-send",
+  "name": "@appjumpstart/mercury-send",
   "version": "1.0.0",
-  "description": "",
+  "description": "An Express/Connect-compatible middleware for sending HTTP responses",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "connect",
+    "mercury",
+    "send",
+    "response"
+  ],
+  "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "license": "ISC",
-  "peerDependencies": {
-    "mercury": "file:~/appjumpstart/mercury"
-  },
   "dependencies": {
     "flatstr": "^1.0.5"
   },
   "devDependencies": {
     "jest": "^22.4.3",
-    "mercury": "file:~/appjumpstart/mercury"
+    "light-my-request": "^2.0.2",
+    "np": "^2.20.1"
   },
   "jest": {
     "testEnvironment": "node"
