@@ -8,7 +8,7 @@
 
 `mercury-send` is a super simple middleware that provides (or overrides) a
 `res.send` function that you can use in other middleware/route handlers. You
-can use it with Node's http.Server, Express, or any connect-compatible
+can use it with [Express](http://expressjs.com) or any connect-compatible
 framework. To get the most benefit, you'll want to use it in tandem with
 [mercury-schema](https://github.com/appjumpstart/mercury-schema) which will
 provide `mercury-send` with a stringify function based on a pre-compiled
